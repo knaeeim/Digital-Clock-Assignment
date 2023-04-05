@@ -10,55 +10,29 @@
 <link rel="stylesheet" href="style.css">
 <body>
     <div class="clock">
-       <div class="time">
-            <div class="left-side">
-                <span id="hours"> 00 </span>
-            </div> <!-- end left side -->
-            <div class="right-side">
-                <div class="right-top">
-                    <span id="dots"> : </span>
-                    <span id="minutes"> 00 </span>
-                </div> <!-- end right top -->
-                <div class="right-down">
-                    <span id="seconds"> 00 </span>
-                    <span id="period"> PM </span>
-                </div>
-            </div> <!-- end right side -->
-       </div> <!-- end time -->
+       
     </div> <!-- end clock -->
     
 
 
 
     <script>
-        function clock(){
-            let hours = document.getElementById("hours");
-            let minutes = document.getElementById("minutes");
-            let seconds = document.getElementById("seconds");
-            let period = document.getElementById("period");
-            let h = new Date().getHours();
-            let m = new Date().getMinutes();
-            let s = new Date().getSeconds();
-            
-            let ampm = h >= 12 ? "PM" : "AM";
+        function digitalClock() {
+            const time = new Date();
 
-            if( h >12){
-                h = h-12
+            const setClock = {
+                hours : time.getHours().toString().padStart(2, "0"), 
+                minutes: time.getMinutes().toString().padStart(2, "0"),
+                seconds: time.getSeconds().toString().padStart(2, "0"),
+                ampm: time.getHours() >= 12 ? "PM" : "AM",
+                clockFormat : function () { 
+                    const ampm = this.ampm ? `${this.ampm}` : "";
+                    return ` ${this.hours} : ${this.minutes} : ${this.seconds} ${ampm}` }
             }
-
-            h = (h < 10) ? "0" + h : h;
-            m = ( m < 10) ? "0" + m : m;
-            s = (s < 10) ? "0" + s : s;
-
-            hours.innerHTML= h; 
-            minutes.innerHTML= m; 
-            seconds.innerHTML= s; 
-            period.innerHTML= ampm; 
-
-
-        };
-
-        setInterval(clock, 1000);  
+            document.getElementsByClassName("clock")[0].innerHTML = setClock.clockFormat();
+        }
+        setInterval(digitalClock, 1000)
+ 
         
         
     </script>
