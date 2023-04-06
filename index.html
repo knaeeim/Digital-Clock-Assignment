@@ -17,22 +17,29 @@
 
 
     <script>
-        
+        // first we need to craete a function
         function digitalClock() {
 
+            // Declare a variable to hold the current time
             const time = new Date();
-
+            // Declare a another variable to stringfy the hour, minute, seconds 
             const setClock = {
                 hours : time.getHours().toString().padStart(2, "0"), 
                 minutes: time.getMinutes().toString().padStart(2, "0"),
                 seconds: time.getSeconds().toString().padStart(2, "0"),
+
+                // ampm is depend on the which half is going on we know that Midnight(0 hrs (According to 24 hrs formate 12 is consider as a 0)) to Midday(till 11.59 AM) is considering as AM and rest of the day and before midnight is considered as PM. then If gethours is less than 12 then it would be AM and if it is grater than 12 then it would be PM.
                 ampm: time.getHours() >= 12 ? "PM" : "AM",
+
+                // Arrange the format of displaying clock
                 clockFormat : function () { 
                     const ampm = this.ampm ? `${this.ampm}` : "";
                     return ` ${this.hours} : ${this.minutes} : ${this.seconds} ${ampm}` }
             }
             document.getElementsByClassName("clock")[0].innerHTML = setClock.clockFormat();
         }
+
+        // we set the interval of 1 sec and call the function.
         setInterval(digitalClock, 1000)
  
         
